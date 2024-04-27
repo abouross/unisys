@@ -1,0 +1,31 @@
+<nb-layout>
+  <nb-layout-header fixed>
+    <div class="header-row">
+      <div class="header-container">
+        <div class="logo-container">
+          <a href="#" (click)="toggleSidebar()" class="sidebar-toggle">
+            <nb-icon icon="menu-2-outline"></nb-icon>
+          </a>
+          <a href="#" class="logo" (click)="navigateHome()">
+            <img src="/assets/logo.png" alt="LOGO" >
+            {{title}}
+          </a>
+        </div>
+        <!--        <app-theme-swither></app-theme-swither>-->
+      </div>
+      <div class="header-container">
+        <nb-actions size="small">
+          <nb-action class="user-action">
+            <nb-user [nbContextMenu]="userMenu" [onlyPicture]="onlyPicture" [name]="userDisplayName()"></nb-user>
+          </nb-action>
+        </nb-actions>
+      </div>
+    </div>
+  </nb-layout-header>
+  <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive [nbSpinner]="!sidebarMenuItems">
+    <nb-menu *ngIf="sidebarMenuItems" [items]="sidebarMenuItems"></nb-menu>
+  </nb-sidebar>
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>
