@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: common-data-service
+  config:
+    import:
+      - optional:file:${CONFIGS_PATH:configs}/actuator.yaml
+      - optional:file:${CONFIGS_PATH:configs}/logging.yaml
+      - optional:file:${CONFIGS_PATH:configs}/data-jpa.yaml
