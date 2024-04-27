@@ -8,7 +8,7 @@ import {
   NbContextMenuModule,
   NbIconModule,
   NbLayoutModule,
-  NbMenuModule, NbSidebarModule, NbSpinnerModule,
+  NbMenuModule, NbSelectModule, NbSidebarModule, NbSpinnerModule,
   NbUserModule
 } from "@nebular/theme";
 import {NbEvaIconsModule} from "@nebular/eva-icons";
@@ -30,7 +30,8 @@ import {NbEvaIconsModule} from "@nebular/eva-icons";
     NbMenuModule.forRoot(),
     NbSpinnerModule,
     NbSidebarModule.forRoot(),
-    NgOptimizedImage
+    NgOptimizedImage,
+    NbSelectModule
   ]
 })
 export class PagesModule { }

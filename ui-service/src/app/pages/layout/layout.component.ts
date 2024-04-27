@@ -4,6 +4,7 @@ import {NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, 
 import {LayoutService} from "../../core/services/layout-service.service";
 import {map, takeUntil} from "rxjs";
 import {MAIN_MENU} from "../main-menu";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-layout',
@@ -26,6 +27,22 @@ export class LayoutComponent extends DestroyableComponent implements OnInit {
   ];
   onlyPicture: boolean = false;
   sidebarMenuItems?: NbMenuItem[];
+  themes = [
+    {
+      value: 'default',
+      name: 'Light',
+    },
+    {
+      value: 'dark',
+      name: 'Dark',
+    },
+    {
+      value: 'cosmic',
+      name: 'Cosmic',
+    }
+  ];
+
+  currentTheme = 'default';
 
   constructor(private sidebarService: NbSidebarService,
               private layoutService: LayoutService,
@@ -45,6 +62,17 @@ export class LayoutComponent extends DestroyableComponent implements OnInit {
         map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
         takeUntil(this.destroy$)
       ).subscribe(isLessThanXl => this.onlyPicture = isLessThanXl)
+
+    this.currentTheme = this.themeService.currentTheme;
+    this.themeService.onThemeChange()
+      .pipe(
+        map(({name}) => name),
+        takeUntil(this.destroy$),
+      )
+      .subscribe(themeName => {
+        this.currentTheme = themeName;
+        localStorage.setItem(environment.currentThemeKey, themeName);
+      });
   }
 
   toggleSidebar() {
@@ -60,6 +88,10 @@ export class LayoutComponent extends DestroyableComponent implements OnInit {
 
   userDisplayName(): string {
     return 'Deconnecté'
+  }
+
+  changeTheme(themeName: string) {
+    this.themeService.changeTheme(themeName);
   }
 }
 
